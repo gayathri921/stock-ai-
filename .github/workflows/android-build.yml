@@ -2,14 +2,14 @@ name: Build APK
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node
@@ -20,10 +20,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build web
+      - name: Build web app
         run: npm run build
 
-      - name: Sync Capacitor
+      - name: Install Capacitor
+        run: npm install @capacitor/cli
+
+      - name: Sync Android
         run: npx cap sync android
 
       - name: Setup Java
